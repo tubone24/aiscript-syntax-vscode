@@ -1,7 +1,8 @@
 {
   "name": "aiscript-syntax",
   "displayName": "AiScript Syntax",
-  "description": "Provides TyranoScript AiScript syntax for Visual Studio Code",
+  "description": "Provides AiScript syntax for Visual Studio Code",
+  "publisher": "tubone24",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.77.0"
@@ -10,16 +11,25 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "aiscript",
-      "aliases": ["AiScript", "aiscript"],
-      "extensions": [".is"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "aiscript",
-      "scopeName": "source.is",
-      "path": "./syntaxes/aiscript.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "aiscript",
+        "aliases": [
+          "AiScript",
+          "aiscript"
+        ],
+        "extensions": [
+          ".is"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "aiscript",
+        "scopeName": "source.is",
+        "path": "./syntaxes/aiscript.tmLanguage.json"
+      }
+    ]
   }
 }

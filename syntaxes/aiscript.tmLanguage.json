@@ -3,17 +3,45 @@
 	"name": "AiScript",
 	"patterns": [
 		{
+			"include": "#comments"
+		},
+		{
+			"include": "#script_configuration"
+		},
+		{
 			"include": "#keywords"
 		},
 		{
 			"include": "#strings"
+		},
+		{
+            "include": "#var_declaration"
+        },
+		{
+			"include": "#function"
 		}
 	],
 	"repository": {
+		"comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.aiscript",
+                    "match": "\\/\\/.*"
+                }
+            ]
+        },
+		"script_configuration": {
+			"patterns": [
+				{
+					"name": "markup.aiscript",
+					"match": "###\\s*{([\\s\\S]*?)}"
+				}
+			]
+		},
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.aiscript",
-				"match": "\\b(if|while|for|return)\\b"
+				"match": "\\b(if|elif|else|each|for|return)\\b"
 			}]
 		},
 		"strings": {
@@ -26,6 +54,125 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"var_declaration": {
+			"patterns": [
+				{
+					"match": "(\\S+)\\s+(\\S+)\\s+=\\s+(\\S+)",
+					"captures": {
+						"1": {"patterns": [{"include": "#var"}]},
+						"2": {"patterns": [{"include": "#var_name"}]},
+						"3": {"patterns": [{"include": "#constant"}]}
+					}
+				}
+			],
+			"repository": {
+				"var": {
+					"patterns": [
+						{
+							"name" : "storage.type.aiscript",
+							"match": "var|let|const"
+						}
+					]
+				},
+				"var_name": {
+					"patterns": [
+						{
+							"name": "variable.other.aiscript",
+							"match": "[0-9a-zA-Z]+"
+						}
+					]
+				},
+				"constant": {
+					"patterns": [
+						{"include": "#constant_number"},
+						{"include": "#constant_string"}
+					],
+					"repository": {
+						"constant_number": {
+							"patterns": [
+								{
+									"name": "constant.numeric.aiscript",
+									"match": "-?[0-9]+"
+								}
+							]
+						},
+						"constant_string": {
+							"patterns": [
+								{
+									"name": "constant.character.aiscript",
+									"begin": "\"",
+									"end": "\""
+								}
+							]
+						},
+						"constant_boolean": {
+							"patterns": [
+								{
+									"name": "constant.language.aiscript",
+									"match": "true|false"
+								}
+							]
+						},
+						"constant_null": {
+							"patterns": [
+								{
+									"name": "constant.language.aiscript",
+									"match": "null"
+								}
+							]
+						},
+						"constant_object": {
+							"patterns": [
+								{
+									"name": "constant.other.aiscript",
+									"begin": "\\{",
+									"end": "\\}"
+								}
+							]
+						},
+						"constant_array": {
+							"patterns": [
+								{
+									"name": "constant.other.aiscript",
+									"begin": "\\[",
+									"end": "\\]"
+								}
+							]
+						}
+					}
+				}
+			}
+		},
+		"function": {
+			"patterns": [
+				{
+					"match": "@(\\S+)\\s*\\((.*)\\)\\s*{[\\s\\S]*}",
+					"captures": {
+						"1": {"patterns": [{"include": "#function_name"}]},
+						"2": {"patterns": [{"include": "#function_arguments"}]}
+					}
+				}
+			],
+			"repository": {
+				"function_name": {
+					"patterns": [
+						{
+							"name": "entity.name.function.aiscript",
+							"match": "[0-9a-zA-Z]+"
+						}
+					]
+				},
+				"function_arguments": {
+					"patterns": [
+						{
+							"name": "variable.parameter.function.aiscript",
+							"match": "[0-9a-zA-Z]+"
+						}
+					]
+				}
+			}
+		
 		}
 	},
 	"scopeName": "source.is"
