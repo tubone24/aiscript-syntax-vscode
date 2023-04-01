@@ -147,10 +147,11 @@
 		"function": {
 			"patterns": [
 				{
-					"match": "@(\\S+)\\s*\\((.*)\\)\\s*{[\\s\\S]*}",
+					"match": "@(\\S+)\\s*\\((.*)\\)\\s*{([\\s\\S]*?)}",
 					"captures": {
 						"1": {"patterns": [{"include": "#function_name"}]},
-						"2": {"patterns": [{"include": "#function_arguments"}]}
+						"2": {"patterns": [{"include": "#function_arguments"}]},
+						"3": {}
 					}
 				}
 			],
