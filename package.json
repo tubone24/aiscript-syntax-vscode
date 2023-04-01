@@ -4,6 +4,7 @@
   "description": "Provides AiScript syntax for Visual Studio Code",
   "publisher": "tubone24",
   "version": "0.0.1",
+  "repository": "https://github.com/tubone24/aiscript-syntax-vscode",
   "engines": {
     "vscode": "^1.77.0"
   },
