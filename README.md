@@ -8,4 +8,8 @@ Provides syntax hightlight and snippets of [AiScript](https://github.com/syuilo/
 
 Initial release of AiScript Syntax
 
+### 0.0.2
+
+Add Snippets
+
 **Enjoy!**
