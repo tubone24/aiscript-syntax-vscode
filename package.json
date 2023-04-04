@@ -30,6 +30,13 @@
         "scopeName": "source.is",
         "path": "./syntaxes/aiscript.tmLanguage.json"
       }
-    ]
+    ],
+    "snippets": [
+			{
+				"language": "aiscript",
+				"scopeName":"source.is",
+				"path": "./snippets/aiscript.snippet.json"
+			}
+		]
   }
 }
