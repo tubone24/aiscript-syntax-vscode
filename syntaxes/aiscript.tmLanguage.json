@@ -27,7 +27,22 @@
                 {
                     "name": "comment.line.aiscript",
                     "match": "\\/\\/.*"
-                }
+                },
+				{
+					"name": "comment.block.aiscript",
+					"begin": "/\\*",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.aiscript"
+						}
+					},
+					"end": "\\*/",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.aiscript"
+						}
+					}
+				}
             ]
         },
 		"script_configuration": {
