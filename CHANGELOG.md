@@ -4,14 +4,18 @@ All notable changes to the "aiscript-syntax" extension will be documented in thi
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [0.0.1]
+## [0.1.0]
 
-- Initial release
+- Multiple comments out supported. (Thanks to [70165tk](https://github.com/70165tk))
+
+## [0.0.3]
+
+- Add MetaData
 
 ## [0.0.2]
 
 - Add Snippets
 
-## [0.0.3]
+## [0.0.1]
 
-- Add MetaData
+- Initial release
