@@ -118,5 +118,24 @@
 		"description":[
 		"プラグインの設定が格納されるオブジェクト。プラグイン定義のconfigで設定したキーで値が入ります。"
 		]
+	},
+	"[Ui:render]":{
+		"prefix":"Ui:render",
+		"body":[
+		"[Ui:render([children])]"
+		],
+		"description":[
+		"Ui:root.update({ children: [...] }) の糖衣構文です。"
+		]
+	},
+	"[Ui:C:mfm]":{
+		"prefix":"Ui:C:mfm",
+		"body":[
+		"[Ui:C:mfm({ text: \"someText\", size: 1, bold: false, color: \"#000\", font: \"sans-serif\"})]"
+		],
+		"description":[
+		"Markup language For Misskeyで指定されるテキストを解釈して表示します。",
+		"詳細についてはhttps://misskey-hub.net/docs/features/mfm.htmlを参照ください。"
+		]
 	}
 }
