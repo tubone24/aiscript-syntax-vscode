@@ -8,7 +8,7 @@ Provides syntax highlighting and snippets of [AiScript](https://github.com/syuil
 
 ## Release Notes
 
-Check [CHANGELOG.md] !
+Check [CHANGELOG.md](./CHANGELOG.md) !
 
 ## License
 
