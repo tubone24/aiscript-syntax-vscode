@@ -1,9 +1,7 @@
-name: Test
-
+name: publish extensions
 on:
-  push:
-  workflow_dispatch:
-  
+  release:
+    types: [created]
 
 jobs:
   test:
@@ -16,8 +14,6 @@ jobs:
           npm install
       - name: format check
         run: npm run fmt:check
-      - name: package
-        run: npm run package
       - name: Publish extension
         id: publisher
         uses: sigma/vsce-publish-action@v0.0.2
