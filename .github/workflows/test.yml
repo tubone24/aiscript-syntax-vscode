@@ -1,0 +1,20 @@
+name: Test
+
+on:
+  push:
+  workflow_dispatch:
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: |
+          npm install -g @vscode/vsce
+          npm install
+      - name: format check
+        run: npm run fmt:check
+      - name: package
+        run: npm run package

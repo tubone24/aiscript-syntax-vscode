@@ -10,8 +10,16 @@
     "vscode": "^1.77.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "AiScript"
   ],
+  "scripts": {
+    "vsce": "vsce",
+    "package": "npm run vsce package",
+    "publish": "npm run vsce publish",
+    "fmt": "prettier --write **/*.{json,md} *.{json,md}",
+    "fmt:check": "prettier --check **/*.{json,md} *.{json,md}"
+  },
   "contributes": {
     "languages": [
       {
@@ -34,11 +42,15 @@
       }
     ],
     "snippets": [
-			{
-				"language": "aiscript",
-				"scopeName":"source.is",
-				"path": "./snippets/aiscript.snippet.json"
-			}
-		]
+      {
+        "language": "aiscript",
+        "scopeName": "source.is",
+        "path": "./snippets/aiscript.snippet.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@vscode/vsce": "2.18.0",
+    "prettier": "2.8.7"
   }
 }

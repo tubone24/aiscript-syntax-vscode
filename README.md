@@ -5,7 +5,6 @@ Provides syntax highlighting and snippets of [AiScript](https://github.com/syuil
 - Supports .is highlighting
 - Supports some Misskey snippets such like `Mk:`
 
-
 ## Release Notes
 
 Check [CHANGELOG.md](./CHANGELOG.md) !
@@ -13,5 +12,10 @@ Check [CHANGELOG.md](./CHANGELOG.md) !
 ## License
 
 MIT License
+
+## Contributors
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
 
 **Enjoy!**
