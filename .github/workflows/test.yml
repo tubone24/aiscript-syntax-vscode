@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install -g @vscode/vsce
+          npm install
       - name: package
         run: npm run package
