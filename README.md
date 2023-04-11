@@ -1,4 +1,7 @@
 # aiscript-syntax
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Provides syntax highlighting and snippets of [AiScript](https://github.com/syuilo/aiscript).
 
@@ -16,6 +19,20 @@ MIT License
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/70165tk"><img src="https://avatars.githubusercontent.com/u/65953662?v=4?s=100" width="100px;" alt="70165tk"/><br /><sub><b>70165tk</b></sub></a><br /><a href="https://github.com/tubone24/aiscript-syntax-vscode/commits?author=70165tk" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 
 <!-- prettier-ignore-end -->
