@@ -18,9 +18,3 @@ jobs:
         run: npm run fmt:check
       - name: package
         run: npm run package
-      - name: Publish extension
-        id: publisher
-        uses: sigma/vsce-publish-action@v0.0.2
-        with:
-          vsce_token: ${{ secrets.VSCE_TOKEN }}
-          build_pkg: yes
