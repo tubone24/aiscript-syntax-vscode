@@ -17,8 +17,8 @@
     "vsce": "vsce",
     "package": "npm run vsce package",
     "publish": "npm run vsce publish",
-    "fmt": "prettier --write **/*.{json,md}",
-    "fmt:check": "prettier --check **/*.{json,md}"
+    "fmt": "prettier --write **/*.{json,md} *.{json,md}",
+    "fmt:check": "prettier --check **/*.{json,md} *.{json,md}"
   },
   "contributes": {
     "languages": [
