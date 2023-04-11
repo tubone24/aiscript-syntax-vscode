@@ -13,4 +13,9 @@ Check [CHANGELOG.md](./CHANGELOG.md) !
 
 MIT License
 
+## Contributors
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
+
 **Enjoy!**
