@@ -19,5 +19,7 @@ MIT License
 <!-- prettier-ignore-start -->
 
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
 **Enjoy!**
