@@ -50,7 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@vscode/vsce": "2.18.0",
+    "@vscode/vsce": "2.19.0",
     "prettier": "2.8.7"
   }
 }
