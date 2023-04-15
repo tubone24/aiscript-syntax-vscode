@@ -6,19 +6,28 @@
       "include": "#comments"
     },
     {
-      "include": "#script_configuration"
+      "include": "#script-configuration"
     },
     {
       "include": "#keywords"
     },
     {
-      "include": "#strings"
+      "include": "#string"
     },
     {
-      "include": "#var_declaration"
+      "include": "#var-declaration"
     },
     {
       "include": "#function"
+    },
+    {
+      "include": "#boolean-literal"
+    },
+    {
+      "include": "#number-literal"
+    },
+    {
+      "include": "#array-literal"
     }
   ],
   "repository": {
@@ -45,7 +54,7 @@
         }
       ]
     },
-    "script_configuration": {
+    "script-configuration": {
       "patterns": [
         {
           "name": "markup.aiscript",
@@ -61,18 +70,549 @@
         }
       ]
     },
-    "strings": {
-      "name": "string.quoted.double.aiscript",
-      "begin": "\"",
-      "end": "\"",
+    "string": {
       "patterns": [
         {
-          "name": "constant.character.escape.aiscript",
-          "match": "\\\\."
+          "include": "#qstring-single"
+        },
+        {
+          "include": "#qstring-double"
+        },
+        {
+          "include": "#template"
         }
       ]
     },
-    "var_declaration": {
+    "qstring-double": {
+      "name": "string.quoted.double.aiscript",
+      "begin": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.aiscript"
+        }
+      },
+      "end": "(\")|((?:[^\\\\\\n])$)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.aiscript"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.aiscript"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-character-escape"
+        }
+      ]
+    },
+    "qstring-single": {
+      "name": "string.quoted.single.aiscript",
+      "begin": "'",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.aiscript"
+        }
+      },
+      "end": "(\\')|((?:[^\\\\\\n])$)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.string.end.aiscript"
+        },
+        "2": {
+          "name": "invalid.illegal.newline.aiscript"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#string-character-escape"
+        }
+      ]
+    },
+    "string-character-escape": {
+      "name": "constant.character.escape.aiscript",
+      "match": "\\\\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)"
+    },
+    "template": {
+      "patterns": [
+        {
+          "contentName": "string.template.aiscript",
+          "begin": "([_$[:alpha:]][_$[:alnum:]]*)?(`)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.tagged-template.aiscript"
+            },
+            "2": {
+              "name": "string.template.aiscript punctuation.definition.string.template.begin.aiscript"
+            }
+          },
+          "end": "`",
+          "endCaptures": {
+            "0": {
+              "name": "string.template.aiscript punctuation.definition.string.template.end.aiscript"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#template-substitution-element"
+            },
+            {
+              "include": "#string-character-escape"
+            }
+          ]
+        }
+      ]
+    },
+    "template-substitution-element": {
+      "name": "meta.template.expression.aiscript",
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.begin.aiscript"
+        }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.end.aiscript"
+        }
+      },
+      "contentName": "meta.embedded.line.aiscript"
+    },
+    "type-string": {
+      "patterns": [
+        {
+          "include": "#qstring-single"
+        },
+        {
+          "include": "#qstring-double"
+        },
+        {
+          "include": "#template-type"
+        }
+      ]
+    },
+    "template-type": {
+      "patterns": [
+        {
+          "contentName": "string.template.aiscript",
+          "begin": "([_$[:alpha:]][_$[:alnum:]]*)?(`)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.tagged-template.aiscript"
+            },
+            "2": {
+              "name": "string.template.aiscript punctuation.definition.string.template.begin.aiscript"
+            }
+          },
+          "end": "`",
+          "endCaptures": {
+            "0": {
+              "name": "string.template.aiscript punctuation.definition.string.template.end.aiscript"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#template-type-substitution-element"
+            },
+            {
+              "include": "#string-character-escape"
+            }
+          ]
+        }
+      ]
+    },
+    "template-type-substitution-element": {
+      "name": "meta.template.expression.aiscript",
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.begin.aiscript"
+        }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.template-expression.end.aiscript"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#type"
+        }
+      ],
+      "contentName": "meta.embedded.line.aiscript"
+    },
+
+    "type": {
+      "patterns": [
+        {
+          "include": "#type-string"
+        },
+        {
+          "include": "#numeric-literal"
+        },
+        {
+          "include": "#type-builtin-literals"
+        },
+        {
+          "include": "#type-tuple"
+        },
+        {
+          "include": "#type-object"
+        },
+        {
+          "include": "#type-operators"
+        },
+        {
+          "include": "#type-function-return-type"
+        },
+        {
+          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(readonly)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))\\s*",
+          "captures": {
+            "1": {
+              "name": "storage.modifier.aiscript"
+            }
+          }
+        },
+        {
+          "include": "#type-name"
+        }
+      ]
+    },
+    "type-builtin-literals": {
+      "name": "support.type.builtin.aiscript",
+      "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(this|true|false|undefined|null|object)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+    },
+    "type-tuple": {
+      "name": "meta.type.tuple.aiscript",
+      "begin": "\\[",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.brace.square.aiscript"
+        }
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": {
+          "name": "meta.brace.square.aiscript"
+        }
+      },
+      "patterns": [
+        {
+          "name": "keyword.operator.rest.aiscript",
+          "match": "\\.\\.\\."
+        },
+        {
+          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))([_$[:alpha:]][_$[:alnum:]]*)\\s*(\\?)?\\s*(:)",
+          "captures": {
+            "1": {
+              "name": "entity.name.label.aiscript"
+            },
+            "2": {
+              "name": "keyword.operator.optional.aiscript"
+            },
+            "3": {
+              "name": "punctuation.separator.label.aiscript"
+            }
+          }
+        },
+        {
+          "include": "#type"
+        },
+        {
+          "include": "#punctuation-comma"
+        }
+      ]
+    },
+    "type-object": {
+      "name": "meta.object.type.aiscript",
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.aiscript"
+        }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.aiscript"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#comment"
+        },
+        {
+          "include": "#method-declaration"
+        },
+        {
+          "include": "#indexer-declaration"
+        },
+        {
+          "include": "#indexer-mapped-type-declaration"
+        },
+        {
+          "include": "#field-declaration"
+        },
+        {
+          "include": "#type-annotation"
+        },
+        {
+          "begin": "\\.\\.\\.",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.spread.aiscript"
+            }
+          },
+          "end": "(?=\\}|;|,|$)|(?<=\\})",
+          "patterns": [
+            {
+              "include": "#type"
+            }
+          ]
+        },
+        {
+          "include": "#punctuation-comma"
+        },
+        {
+          "include": "#punctuation-semicolon"
+        },
+        {
+          "include": "#type"
+        }
+      ]
+    },
+    "type-function-return-type": {
+      "patterns": [
+        {
+          "name": "meta.type.function.return.aiscript",
+          "begin": "(=>)(?=\\s*\\S)",
+          "beginCaptures": {
+            "1": {
+              "name": "storage.type.function.arrow.aiscript"
+            }
+          },
+          "end": "(?<!=>)(?<![|&])(?=[,\\]\\)\\{\\}=;>:\\?]|//|$)",
+          "patterns": [
+            {
+              "include": "#type-function-return-type-core"
+            }
+          ]
+        },
+        {
+          "name": "meta.type.function.return.aiscript",
+          "begin": "=>",
+          "beginCaptures": {
+            "0": {
+              "name": "storage.type.function.arrow.aiscript"
+            }
+          },
+          "end": "(?<!=>)(?<![|&])((?=[,\\]\\)\\{\\}=;:\\?>]|//|^\\s*$)|((?<=\\S)(?=\\s*$)))",
+          "patterns": [
+            {
+              "include": "#type-function-return-type-core"
+            }
+          ]
+        }
+      ]
+    },
+    "type-function-return-type-core": {
+      "patterns": [
+        {
+          "include": "#comment"
+        },
+        {
+          "begin": "(?<==>)(?=\\s*\\{)",
+          "end": "(?<=\\})",
+          "patterns": [
+            {
+              "include": "#type-object"
+            }
+          ]
+        },
+        {
+          "include": "#type-predicate-operator"
+        },
+        {
+          "include": "#type"
+        }
+      ]
+    },
+    "type-operators": {
+      "patterns": [
+        {
+          "include": "#typeof-operator"
+        },
+        {
+          "include": "#type-infer"
+        },
+        {
+          "begin": "([&|])(?=\\s*\\{)",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.type.aiscript"
+            }
+          },
+          "end": "(?<=\\})",
+          "patterns": [
+            {
+              "include": "#type-object"
+            }
+          ]
+        },
+        {
+          "begin": "[&|]",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.type.aiscript"
+            }
+          },
+          "end": "(?=\\S)"
+        },
+        {
+          "name": "keyword.operator.ternary.aiscript",
+          "match": "(\\?|\\:)"
+        }
+      ]
+    },
+    "type-predicate-operator": {
+      "patterns": [
+        {
+          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(?:(asserts)\\s+)?(?!asserts)(?:(this)|([_$[:alpha:]][_$[:alnum:]]*))\\s(is)(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.type.asserts.aiscript"
+            },
+            "2": {
+              "name": "variable.parameter.aiscript variable.language.this.aiscript"
+            },
+            "3": {
+              "name": "variable.parameter.aiscript"
+            },
+            "4": {
+              "name": "keyword.operator.expression.is.aiscript"
+            }
+          }
+        },
+        {
+          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(asserts)\\s+(?!is)(?:(this)|([_$[:alpha:]][_$[:alnum:]]*))(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.type.asserts.aiscript"
+            },
+            "2": {
+              "name": "variable.parameter.aiscript variable.language.this.aiscript"
+            },
+            "3": {
+              "name": "variable.parameter.aiscript"
+            }
+          }
+        },
+        {
+          "name": "keyword.operator.type.asserts.aiscript",
+          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))asserts(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+        },
+        {
+          "name": "keyword.operator.expression.is.aiscript",
+          "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))is(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+        }
+      ]
+    },
+    "type-name": {
+      "patterns": [
+        {
+          "begin": "([_$[:alpha:]][_$[:alnum:]]*)\\s*(?:(\\.)|(\\?\\.(?!\\s*[[:digit:]])))\\s*(<)",
+          "captures": {
+            "1": {
+              "name": "entity.name.type.module.aiscript"
+            },
+            "2": {
+              "name": "punctuation.accessor.aiscript"
+            },
+            "3": {
+              "name": "punctuation.accessor.optional.aiscript"
+            },
+            "4": {
+              "name": "meta.type.parameters.aiscript punctuation.definition.typeparameters.begin.aiscript"
+            }
+          },
+          "end": "(>)",
+          "endCaptures": {
+            "1": {
+              "name": "meta.type.parameters.aiscript punctuation.definition.typeparameters.end.aiscript"
+            }
+          },
+          "contentName": "meta.type.parameters.aiscript",
+          "patterns": [
+            {
+              "include": "#type-arguments-body"
+            }
+          ]
+        },
+        {
+          "begin": "([_$[:alpha:]][_$[:alnum:]]*)\\s*(<)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.type.aiscript"
+            },
+            "2": {
+              "name": "meta.type.parameters.aiscript punctuation.definition.typeparameters.begin.aiscript"
+            }
+          },
+          "end": "(>)",
+          "endCaptures": {
+            "1": {
+              "name": "meta.type.parameters.aiscript punctuation.definition.typeparameters.end.aiscript"
+            }
+          },
+          "contentName": "meta.type.parameters.aiscript",
+          "patterns": [
+            {
+              "include": "#type-arguments-body"
+            }
+          ]
+        },
+        {
+          "match": "([_$[:alpha:]][_$[:alnum:]]*)\\s*(?:(\\.)|(\\?\\.(?!\\s*[[:digit:]])))",
+          "captures": {
+            "1": {
+              "name": "entity.name.type.module.aiscript"
+            },
+            "2": {
+              "name": "punctuation.accessor.aiscript"
+            },
+            "3": {
+              "name": "punctuation.accessor.optional.aiscript"
+            }
+          }
+        },
+        {
+          "name": "entity.name.type.aiscript",
+          "match": "[_$[:alpha:]][_$[:alnum:]]*"
+        }
+      ]
+    },
+    "punctuation-comma": {
+      "name": "punctuation.separator.comma.aiscript",
+      "match": ","
+    },
+    "punctuation-semicolon": {
+      "name": "punctuation.terminator.statement.aiscript",
+      "match": ";"
+    },
+    "punctuation-accessor": {
+      "match": "(?:(\\.)|(\\?\\.(?!\\s*[[:digit:]])))",
+      "captures": {
+        "1": {
+          "name": "punctuation.accessor.aiscript"
+        },
+        "2": {
+          "name": "punctuation.accessor.optional.aiscript"
+        }
+      }
+    },
+    "var-declaration": {
       "patterns": [
         {
           "match": "(\\S+)\\s+(\\S+)\\s+=\\s+(\\S+)",
@@ -117,17 +657,14 @@
             "constant_string": {
               "patterns": [
                 {
-                  "name": "constant.character.aiscript",
-                  "begin": "\"",
-                  "end": "\""
+                  "include": "#string"
                 }
               ]
             },
             "constant_boolean": {
               "patterns": [
                 {
-                  "name": "constant.language.aiscript",
-                  "match": "true|false"
+                  "include": "#boolean-literal"
                 }
               ]
             },
@@ -190,6 +727,92 @@
         }
       }
     }
+  },
+  "array-literal": {
+    "name": "meta.array.literal.aiscript",
+    "begin": "\\s*(\\[)",
+    "beginCaptures": {
+      "1": {
+        "name": "meta.brace.square.aiscript"
+      }
+    },
+    "end": "\\]",
+    "endCaptures": {
+      "0": {
+        "name": "meta.brace.square.aiscript"
+      }
+    },
+    "patterns": [
+      {
+        "include": "#punctuation-comma"
+      }
+    ]
+  },
+  "boolean-literal": {
+    "patterns": [
+      {
+        "name": "constant.language.boolean.true.aiscript",
+        "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))true(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+      },
+      {
+        "name": "constant.language.boolean.false.aiscript",
+        "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))false(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+      }
+    ]
+  },
+  "numeric-literal": {
+    "patterns": [
+      {
+        "match": "(?x)\n(?<!\\$)(?:\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)| # 1.1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # 1.E+3\n  (?:\\B(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # .1E+3\n  (?:\\b[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|                 # 1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b)|                      # 1.1\n  (?:\\b[0-9][0-9_]*(\\.)(n)?\\B)|                                  # 1.\n  (?:\\B(\\.)[0-9][0-9_]*(n)?\\b)|                                  # .1\n  (?:\\b[0-9][0-9_]*(n)?\\b(?!\\.))                                 # 1\n)(?!\\$)",
+        "captures": {
+          "0": {
+            "name": "constant.numeric.decimal.aiscript"
+          },
+          "1": {
+            "name": "meta.delimiter.decimal.period.aiscript"
+          },
+          "2": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          },
+          "3": {
+            "name": "meta.delimiter.decimal.period.aiscript"
+          },
+          "4": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          },
+          "5": {
+            "name": "meta.delimiter.decimal.period.aiscript"
+          },
+          "6": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          },
+          "7": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          },
+          "8": {
+            "name": "meta.delimiter.decimal.period.aiscript"
+          },
+          "9": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          },
+          "10": {
+            "name": "meta.delimiter.decimal.period.aiscript"
+          },
+          "11": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          },
+          "12": {
+            "name": "meta.delimiter.decimal.period.aiscript"
+          },
+          "13": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          },
+          "14": {
+            "name": "storage.type.numeric.bigint.aiscript"
+          }
+        }
+      }
+    ]
   },
   "scopeName": "source.is"
 }
