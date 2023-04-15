@@ -10,8 +10,7 @@
     "vscode": "^1.77.0"
   },
   "categories": [
-    "Programming Languages",
-    "AiScript"
+    "Programming Languages"
   ],
   "scripts": {
     "vsce": "vsce",
