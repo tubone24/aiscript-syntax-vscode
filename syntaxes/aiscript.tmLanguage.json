@@ -6,7 +6,7 @@
       "include": "#comments"
     },
     {
-      "include": "#script_configuration"
+      "include": "#script-configuration"
     },
     {
       "include": "#keywords"
@@ -15,7 +15,7 @@
       "include": "#string"
     },
     {
-      "include": "#var_declaration"
+      "include": "#var-declaration"
     },
     {
       "include": "#function"
@@ -25,6 +25,9 @@
     },
     {
       "include": "#number-literal"
+    },
+    {
+      "include": "#array-literal"
     }
   ],
   "repository": {
@@ -51,7 +54,7 @@
         }
       ]
     },
-    "script_configuration": {
+    "script-configuration": {
       "patterns": [
         {
           "name": "markup.aiscript",
@@ -609,7 +612,7 @@
 				}
 			}
 		},
-    "var_declaration": {
+    "var-declaration": {
       "patterns": [
         {
           "match": "(\\S+)\\s+(\\S+)\\s+=\\s+(\\S+)",
@@ -654,17 +657,14 @@
             "constant_string": {
               "patterns": [
                 {
-                  "name": "constant.character.aiscript",
-                  "begin": "\"",
-                  "end": "\""
+                  "include": "#string"
                 }
               ]
             },
             "constant_boolean": {
               "patterns": [
                 {
-                  "name": "constant.language.aiscript",
-                  "match": "true|false"
+                  "include": "#boolean-literal"
                 }
               ]
             },
@@ -728,6 +728,26 @@
       }
     }
   },
+  "array-literal": {
+    "name": "meta.array.literal.aiscript",
+    "begin": "\\s*(\\[)",
+    "beginCaptures": {
+      "1": {
+        "name": "meta.brace.square.aiscript"
+      }
+    },
+    "end": "\\]",
+    "endCaptures": {
+      "0": {
+        "name": "meta.brace.square.aiscript"
+      }
+    },
+    "patterns": [
+      {
+        "include": "#punctuation-comma"
+      }
+    ]
+  },
   "boolean-literal": {
     "patterns": [
       {
@@ -735,7 +755,7 @@
         "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))true(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
       },
       {
-        "name": "constant.language.boolean.false.aiscript ",
+        "name": "constant.language.boolean.false.aiscript",
         "match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))false(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
       }
     ]
